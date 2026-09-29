@@ -1,0 +1,116 @@
+.mo-checkbox,
+.mo-radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  color: var(--mo-text-color);
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  margin-right: 24px;
+  &:last-child {
+    margin-right: 0;
+  }
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+  &.is-bordered {
+    height: var(--mo-size-default);
+    padding: 0 14px 0 10px;
+    border: var(--mo-border-width) solid var(--mo-color-line);
+    border-radius: var(--mo-radius-hand);
+    box-sizing: border-box;
+    transition:
+      border-color var(--mo-duration),
+      background var(--mo-duration);
+    &.is-checked {
+      border-color: var(--mo-color-primary);
+      background: var(--mo-color-primary-light-9);
+    }
+  }
+}
+
+.mo-checkbox {
+  --mo-checkbox-size: 18px;
+  &__input {
+    position: relative;
+    display: inline-flex;
+  }
+  &__original {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+  &__box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--mo-checkbox-size);
+    height: var(--mo-checkbox-size);
+    color: var(--mo-color-white);
+    background: var(--mo-color-paper-light);
+    border: var(--mo-border-width) solid var(--mo-border-color);
+    border-radius: var(--mo-radius-wobble-sm);
+    box-sizing: border-box;
+    transition:
+      background var(--mo-duration) var(--mo-ease-ink),
+      transform var(--mo-duration) var(--mo-ease-bounce);
+    svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      stroke-width: 3.2;
+    }
+  }
+  &__mark {
+    stroke-dasharray: 30;
+    stroke-dashoffset: 30;
+    transition: stroke-dashoffset var(--mo-duration-slow) var(--mo-ease-ink);
+  }
+  &:not(.is-disabled):hover &__box {
+    transform: rotate(-6deg) scale(1.06);
+  }
+  &__original:focus-visible + &__box {
+    outline: 2px dashed var(--mo-color-primary-light-5);
+    outline-offset: 3px;
+  }
+  &.is-checked &__box,
+  &.is-indeterminate &__box {
+    background: var(--mo-color-primary);
+  }
+  // 一笔勾出来
+  &.is-checked &__mark,
+  &.is-indeterminate &__mark {
+    stroke-dashoffset: 0;
+  }
+  &--small {
+    --mo-checkbox-size: 15px;
+    font-size: var(--mo-font-size-sm);
+  }
+  &--large {
+    --mo-checkbox-size: 21px;
+    font-size: var(--mo-font-size-md);
+  }
+}
+
+.mo-checkbox-group,
+.mo-radio-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 10px;
+  &--vertical {
+    flex-direction: column;
+    align-items: flex-start;
+    .mo-checkbox,
+    .mo-radio {
+      margin-right: 0;
+    }
+  }
+}

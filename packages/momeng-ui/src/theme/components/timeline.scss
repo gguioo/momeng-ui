@@ -1,0 +1,99 @@
+.mo-timeline {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--mo-font-family);
+}
+.mo-timeline-item {
+  --mo-timeline-color: var(--mo-color-ink-3);
+  position: relative;
+  padding-bottom: 22px;
+  &__tail {
+    position: absolute;
+    top: 14px;
+    bottom: -2px;
+    left: 7px;
+    border-left: 2px dashed var(--mo-color-line);
+  }
+  &:last-child &__tail {
+    display: none;
+  }
+  &__node {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    background: var(--mo-timeline-color);
+    border: 2px solid var(--mo-color-ink);
+    border-radius: 50% 44% 54% 48% / 46% 54% 44% 52%;
+    box-sizing: border-box;
+    color: var(--mo-color-white);
+    &.is-hollow {
+      background: var(--mo-bg-color);
+      border-color: var(--mo-timeline-color);
+    }
+    &.is-icon {
+      top: 0;
+      left: -4px;
+      width: 24px;
+      height: 24px;
+      font-size: 14px;
+    }
+    @each $t in primary, success, warning, danger, info {
+      &--#{$t} {
+        --mo-timeline-color: var(--mo-color-#{$t});
+      }
+    }
+  }
+  &--large &__node:not(.is-icon) {
+    top: 1px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+  }
+  &__wrapper {
+    padding-left: 30px;
+  }
+  &__content {
+    font-size: var(--mo-font-size-base);
+    line-height: var(--mo-line-height);
+    color: var(--mo-text-color);
+  }
+  &__timestamp {
+    margin-top: 4px;
+    font-size: var(--mo-font-size-xs);
+    color: var(--mo-text-color-placeholder);
+    letter-spacing: 0.05em;
+    &.is-top {
+      margin: 0 0 4px;
+    }
+  }
+}
+.mo-timeline--alternate {
+  .mo-timeline-item {
+    &__tail {
+      left: calc(50% - 1px);
+    }
+    &__node {
+      left: calc(50% - 8px);
+      &.is-icon {
+        left: calc(50% - 12px);
+      }
+    }
+    &__wrapper {
+      width: 50%;
+      box-sizing: border-box;
+      padding: 0 0 0 28px;
+      margin-left: 50%;
+    }
+    &:nth-child(even) .mo-timeline-item__wrapper {
+      margin-left: 0;
+      padding: 0 28px 0 0;
+      text-align: right;
+    }
+  }
+}

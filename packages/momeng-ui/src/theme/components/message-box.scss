@@ -1,0 +1,14 @@
+.mo-message-box {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  &__mascot {
+    flex-shrink: 0;
+  }
+  &__message {
+    margin: 0;
+    font-size: var(--mo-font-size-md);
+    color: var(--mo-text-color);
+    line-height: 1.7;
+  }
+}

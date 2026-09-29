@@ -1,0 +1,109 @@
+@use '../mixins' as *;
+
+.mo-input-number {
+  --mo-input-height: var(--mo-size-default);
+  --mo-input-border: var(--mo-border-color);
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  width: 150px;
+  height: var(--mo-input-height);
+  font-family: var(--mo-font-family);
+  background: var(--mo-color-paper-light);
+  border: var(--mo-border-width) solid var(--mo-input-border);
+  border-radius: var(--mo-radius-hand);
+  box-sizing: border-box;
+  overflow: hidden;
+  vertical-align: middle;
+  transition: box-shadow var(--mo-duration);
+  &:focus-within {
+    --mo-input-border: var(--mo-color-primary);
+    box-shadow: 3px 3px 0 var(--mo-color-primary-light-7);
+  }
+
+  &__inner {
+    flex: 1;
+    min-width: 0;
+    padding: 0 8px;
+    font: inherit;
+    font-family: var(--mo-font-family-mono);
+    font-size: var(--mo-font-size-base);
+    text-align: center;
+    color: var(--mo-text-color);
+    background: none;
+    border: none;
+    outline: none;
+  }
+  &__btn {
+    @include reset-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--mo-input-height);
+    color: var(--mo-text-color-secondary);
+    background: var(--mo-color-paper-deep);
+    transition:
+      color var(--mo-duration-fast),
+      background var(--mo-duration-fast);
+    &:not(.is-disabled):hover {
+      color: var(--mo-color-primary);
+      background: var(--mo-color-primary-light-9);
+    }
+    &:not(.is-disabled):active .mo-icon {
+      transform: scale(0.8);
+    }
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+  &__decrease {
+    border-right: 1.5px dashed var(--mo-color-line);
+  }
+  &__increase {
+    border-left: 1.5px dashed var(--mo-color-line);
+  }
+
+  &--controls-right {
+    display: grid;
+    grid-template-columns: 1fr 28px;
+    grid-template-rows: 1fr 1fr;
+    .mo-input-number__inner {
+      grid-row: 1 / 3;
+      grid-column: 1;
+      text-align: left;
+      padding-left: 12px;
+    }
+    .mo-input-number__btn {
+      width: 28px;
+      grid-column: 2;
+      border: none;
+      border-left: 1.5px dashed var(--mo-color-line);
+      font-size: 12px;
+    }
+    .mo-input-number__increase {
+      grid-row: 1;
+      border-bottom: 1.5px dashed var(--mo-color-line);
+    }
+    .mo-input-number__decrease {
+      grid-row: 2;
+    }
+  }
+
+  &.is-disabled {
+    background: var(--mo-color-paper-deep);
+    --mo-input-border: var(--mo-color-line);
+    .mo-input-number__inner {
+      color: var(--mo-text-color-placeholder);
+      cursor: not-allowed;
+    }
+  }
+  &--small {
+    --mo-input-height: var(--mo-size-small);
+    width: 120px;
+  }
+  &--large {
+    --mo-input-height: var(--mo-size-large);
+    width: 180px;
+  }
+}

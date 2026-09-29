@@ -1,0 +1,17 @@
+.mo-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  line-height: 1;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+  svg {
+    width: 1em;
+    height: 1em;
+  }
+  &.is-spin {
+    animation: mo-spin 1s linear infinite;
+  }
+}

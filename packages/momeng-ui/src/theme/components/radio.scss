@@ -1,0 +1,100 @@
+.mo-radio {
+  --mo-radio-size: 18px;
+  &__original {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+  }
+  &__dot {
+    position: relative;
+    display: inline-block;
+    width: var(--mo-radio-size);
+    height: var(--mo-radio-size);
+    border: var(--mo-border-width) solid var(--mo-border-color);
+    border-radius: 48% 52% 46% 54% / 52% 46% 54% 48%;
+    background: var(--mo-color-paper-light);
+    box-sizing: border-box;
+    flex-shrink: 0;
+    transition: transform var(--mo-duration) var(--mo-ease-bounce);
+    // 一滴朱砂
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 3px;
+      border-radius: 52% 48% 55% 45% / 45% 55% 48% 52%;
+      background: var(--mo-color-primary);
+      transform: scale(0);
+      transition: transform var(--mo-duration) var(--mo-ease-bounce);
+    }
+  }
+  &:not(.is-disabled):hover &__dot {
+    transform: scale(1.08) rotate(8deg);
+  }
+  &__original:focus-visible + &__dot {
+    outline: 2px dashed var(--mo-color-primary-light-5);
+    outline-offset: 3px;
+  }
+  &.is-checked &__dot {
+    border-color: var(--mo-color-primary);
+    &::after {
+      transform: scale(1);
+    }
+  }
+  &--small {
+    --mo-radio-size: 15px;
+    font-size: var(--mo-font-size-sm);
+  }
+  &--large {
+    --mo-radio-size: 21px;
+    font-size: var(--mo-font-size-md);
+  }
+
+  // —— 按钮组：一排小木牌 ——
+  &.is-button {
+    margin: 0;
+    height: var(--mo-size-default);
+    padding: 0 16px;
+    border: var(--mo-border-width) solid var(--mo-border-color);
+    background: var(--mo-color-paper-light);
+    transition:
+      background var(--mo-duration),
+      color var(--mo-duration);
+    &:not(:first-child) {
+      margin-left: calc(var(--mo-border-width) * -1);
+    }
+    &:first-child {
+      border-radius: 14px 4px 4px 16px / 16px 4px 4px 14px;
+    }
+    &:last-child {
+      border-radius: 4px 16px 14px 4px / 4px 14px 16px 4px;
+    }
+    &:not(.is-disabled):hover {
+      color: var(--mo-color-primary);
+    }
+    &.is-checked {
+      position: relative;
+      z-index: 1;
+      color: var(--mo-color-white);
+      background: var(--mo-color-primary);
+      box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.12);
+    }
+    &:has(.mo-radio__original:focus-visible) {
+      outline: 2px dashed var(--mo-color-primary-light-5);
+      outline-offset: 2px;
+      z-index: 2;
+    }
+    &.mo-radio--small {
+      height: var(--mo-size-small);
+      padding: 0 12px;
+    }
+    &.mo-radio--large {
+      height: var(--mo-size-large);
+      padding: 0 20px;
+    }
+  }
+}
+.mo-radio-group--button {
+  flex-wrap: nowrap;
+}

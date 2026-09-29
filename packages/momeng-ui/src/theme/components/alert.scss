@@ -1,0 +1,94 @@
+@use '../mixins' as *;
+
+.mo-alert {
+  --mo-alert-color: var(--mo-color-info);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  padding: 12px 16px 12px 20px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  color: color-mix(in srgb, var(--mo-alert-color) 70%, var(--mo-mix-ink));
+  background: color-mix(in srgb, var(--mo-alert-color) 10%, var(--mo-mix-base));
+  border: 1.5px solid color-mix(in srgb, var(--mo-alert-color) 45%, var(--mo-mix-base));
+  border-radius: var(--mo-radius-wobble);
+  box-sizing: border-box;
+  overflow: hidden;
+  // 左侧一笔浓墨
+  &::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 6px;
+    width: 5px;
+    border-radius: 4px 2px 5px 2px;
+    background: var(--mo-alert-color);
+  }
+  @each $t in primary, success, warning, danger, info {
+    &--#{$t} {
+      --mo-alert-color: var(--mo-color-#{$t});
+    }
+  }
+  &--dark {
+    color: var(--mo-color-white);
+    background: var(--mo-alert-color);
+    border-color: var(--mo-color-ink);
+    box-shadow: var(--mo-shadow-stamp-sm);
+    &::before {
+      background: rgba(255, 253, 246, 0.55);
+    }
+  }
+  &--dark.mo-alert--warning {
+    color: #2d2926;
+  }
+  &__icon {
+    margin-top: 3px;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  &.is-with-desc &__icon {
+    font-size: 24px;
+    margin-top: 0;
+  }
+  &__body {
+    flex: 1;
+    min-width: 0;
+  }
+  &__title {
+    font-weight: 700;
+    line-height: 1.6;
+  }
+  &__desc {
+    margin-top: 2px;
+    font-size: var(--mo-font-size-sm);
+    line-height: 1.7;
+    opacity: 0.9;
+  }
+  &.is-center {
+    justify-content: center;
+    text-align: center;
+    .mo-alert__body {
+      flex: none;
+    }
+  }
+  &__close {
+    @include reset-button;
+    display: inline-flex;
+    margin-top: 3px;
+    opacity: 0.7;
+    transition:
+      opacity var(--mo-duration-fast),
+      transform var(--mo-duration-fast) var(--mo-ease-bounce);
+    &:hover {
+      opacity: 1;
+      transform: rotate(90deg);
+    }
+    &.is-text:hover {
+      transform: none;
+      text-decoration: underline wavy;
+    }
+  }
+}

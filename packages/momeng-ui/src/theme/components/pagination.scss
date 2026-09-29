@@ -1,0 +1,103 @@
+@use '../mixins' as *;
+
+.mo-pagination {
+  --mo-pager-size: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  color: var(--mo-text-color);
+
+  &__pager {
+    display: flex;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  &__btn,
+  &__item {
+    @include reset-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--mo-pager-size);
+    height: var(--mo-pager-size);
+    padding: 0 4px;
+    font-family: var(--mo-font-family-display);
+    border: 1.5px solid transparent;
+    border-radius: 50% 46% 52% 48% / 48% 52% 46% 50%;
+    box-sizing: border-box;
+    transition:
+      color var(--mo-duration-fast),
+      border-color var(--mo-duration-fast),
+      transform var(--mo-duration) var(--mo-ease-bounce);
+    &:not(:disabled):hover {
+      color: var(--mo-color-primary);
+      border-color: var(--mo-color-primary-light-5);
+      transform: rotate(-6deg);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.4;
+    }
+  }
+  &__btn {
+    border-color: var(--mo-border-color);
+  }
+  // 当前页：钤一方小印
+  &__item.is-active {
+    color: var(--mo-color-white);
+    background: var(--mo-color-primary);
+    border-color: var(--mo-color-primary);
+    border-radius: 4px 6px 3px 5px;
+    transform: rotate(-4deg);
+    box-shadow:
+      inset 0 0 0 2px var(--mo-color-primary),
+      inset 0 0 0 3.5px rgba(255, 253, 246, 0.5);
+    cursor: default;
+    &:hover {
+      color: var(--mo-color-white);
+      transform: rotate(-4deg);
+    }
+  }
+  &__more {
+    color: var(--mo-color-ink-3);
+  }
+  &__total {
+    color: var(--mo-text-color-secondary);
+    margin-right: 4px;
+  }
+  &__sizes {
+    width: 110px;
+  }
+  &__jumper {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--mo-text-color-secondary);
+  }
+  &__jump-input {
+    width: 44px;
+    height: 28px;
+    font: inherit;
+    text-align: center;
+    color: var(--mo-text-color);
+    background: var(--mo-color-paper-light);
+    border: none;
+    border-bottom: 2px solid var(--mo-border-color);
+    outline: none;
+    &:focus {
+      border-color: var(--mo-color-primary);
+    }
+  }
+  &.is-small {
+    --mo-pager-size: 26px;
+    font-size: var(--mo-font-size-sm);
+  }
+}

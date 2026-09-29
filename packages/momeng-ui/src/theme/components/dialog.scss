@@ -1,0 +1,129 @@
+@use '../mixins' as *;
+
+.mo-dialog__overlay {
+  position: fixed;
+  inset: 0;
+  overflow: auto;
+  &.is-modal {
+    background: var(--mo-mask-color);
+    backdrop-filter: blur(1.5px);
+  }
+  &.is-align-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.mo-dialog {
+  position: relative;
+  max-width: calc(100vw - 32px);
+  margin: 0 auto 48px;
+  font-family: var(--mo-font-family);
+  color: var(--mo-text-color);
+  background-color: var(--mo-color-paper-light);
+  @include paper-texture;
+  border: var(--mo-border-width) solid var(--mo-border-color);
+  border-radius: var(--mo-radius-wobble);
+  box-shadow: var(--mo-shadow-stamp-lg);
+  box-sizing: border-box;
+  outline: none;
+
+  .mo-dialog__overlay.is-align-center & {
+    margin: 0;
+  }
+  &.is-fullscreen {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+  }
+  // 信笺竖格：古人写信的朱丝栏
+  &.is-lined .mo-dialog__body {
+    background-image: repeating-linear-gradient(
+      to right,
+      transparent 0 31px,
+      var(--mo-color-primary-light-8) 31px 32px
+    );
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 18px 20px 6px 24px;
+  }
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-xl);
+    letter-spacing: 0.04em;
+  }
+  &__close {
+    @include reset-button;
+    display: inline-flex;
+    padding: 4px;
+    font-size: 20px;
+    color: var(--mo-color-ink-3);
+    border-radius: 50%;
+    transition:
+      color var(--mo-duration-fast),
+      transform var(--mo-duration) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-primary);
+      transform: rotate(90deg) scale(1.1);
+    }
+    &:focus-visible {
+      @include focus-ring;
+    }
+  }
+  &__body {
+    padding: 14px 24px 20px;
+    font-size: var(--mo-font-size-base);
+    line-height: var(--mo-line-height);
+    color: var(--mo-text-color-secondary);
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 4px 24px 22px;
+    .mo-button + .mo-button {
+      margin-left: 0;
+    }
+  }
+  &.is-center {
+    text-align: center;
+    .mo-dialog__header {
+      justify-content: center;
+      position: relative;
+    }
+    .mo-dialog__close {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+    }
+    .mo-dialog__footer {
+      justify-content: center;
+    }
+  }
+}
+
+.mo-dialog-enter-active,
+.mo-dialog-leave-active {
+  transition: opacity var(--mo-duration) var(--mo-ease-ink);
+  .mo-dialog {
+    transition: transform var(--mo-duration-slow) var(--mo-ease-bounce);
+  }
+}
+.mo-dialog-enter-from,
+.mo-dialog-leave-to {
+  opacity: 0;
+  .mo-dialog {
+    transform: translateY(-24px) rotate(-2deg) scale(0.94);
+  }
+}

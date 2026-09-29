@@ -1,0 +1,50 @@
+// 手绘描边盒子
+@mixin hand-box($radius: var(--mo-radius-hand)) {
+  border: var(--mo-border);
+  border-radius: $radius;
+}
+
+// 聚焦环：像用朱砂笔圈了一下
+@mixin focus-ring($color: var(--mo-color-primary-light-5)) {
+  outline: 2px dashed $color;
+  outline-offset: 3px;
+}
+
+// 可交互元素的「钤印」按压反馈
+@mixin stamp-press {
+  transition:
+    transform var(--mo-duration-fast) var(--mo-ease-bounce),
+    box-shadow var(--mo-duration-fast) var(--mo-ease-ink),
+    background-color var(--mo-duration) var(--mo-ease-ink),
+    color var(--mo-duration) var(--mo-ease-ink),
+    border-color var(--mo-duration) var(--mo-ease-ink);
+  &:not(.is-disabled):hover {
+    transform: translate(-1px, -2px);
+    box-shadow: var(--mo-shadow-stamp);
+  }
+  &:not(.is-disabled):active {
+    transform: translate(2px, 2px) scale(0.98);
+    box-shadow: 0 0 0 var(--mo-shadow-color);
+  }
+}
+
+@mixin paper-texture {
+  background-image: var(--mo-texture-paper);
+}
+
+@mixin ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+@mixin reset-button {
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}

@@ -1,0 +1,53 @@
+.mo-link {
+  --mo-link-color: var(--mo-text-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--mo-font-family);
+  color: var(--mo-link-color);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--mo-duration) var(--mo-ease-ink);
+
+  &__inner {
+    position: relative;
+  }
+  // 波浪线用 mask 着色，跟随文字颜色
+  &__inner::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -3px;
+    height: 5px;
+    background-color: currentColor;
+    -webkit-mask: var(--mo-wave-line) repeat-x 0 0 / 10px 5px;
+    mask: var(--mo-wave-line) repeat-x 0 0 / 10px 5px;
+    clip-path: inset(0 100% 0 0);
+    transition: clip-path var(--mo-duration-slow) var(--mo-ease-ink);
+  }
+  &--underline-always &__inner::after,
+  &--underline-hover:not(.is-disabled):hover &__inner::after {
+    clip-path: inset(0 0 0 0);
+  }
+  &:not(.is-disabled):hover {
+    --mo-link-color: var(--mo-color-primary);
+  }
+  @each $t in primary, success, warning, danger, info {
+    &--#{$t} {
+      --mo-link-color: var(--mo-color-#{$t});
+      &:not(.is-disabled):hover {
+        --mo-link-color: var(--mo-color-#{$t}-light-3);
+      }
+    }
+  }
+  &:focus-visible {
+    outline: 2px dashed var(--mo-color-primary-light-5);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}

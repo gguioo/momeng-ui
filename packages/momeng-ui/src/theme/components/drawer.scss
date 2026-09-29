@@ -1,0 +1,113 @@
+@use '../mixins' as *;
+
+.mo-drawer__overlay {
+  position: fixed;
+  inset: 0;
+  &.is-modal {
+    background: var(--mo-mask-color);
+  }
+}
+.mo-drawer {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  max-height: 100%;
+  font-family: var(--mo-font-family);
+  color: var(--mo-text-color);
+  background-color: var(--mo-color-paper-light);
+  @include paper-texture;
+  box-sizing: border-box;
+  outline: none;
+
+  &--rtl {
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-left: var(--mo-border-width) solid var(--mo-border-color);
+    box-shadow: -5px 0 0 var(--mo-color-primary-light-7);
+  }
+  &--ltr {
+    top: 0;
+    left: 0;
+    height: 100%;
+    border-right: var(--mo-border-width) solid var(--mo-border-color);
+    box-shadow: 5px 0 0 var(--mo-color-primary-light-7);
+  }
+  &--ttb {
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: var(--mo-border-width) solid var(--mo-border-color);
+    box-shadow: 0 5px 0 var(--mo-color-primary-light-7);
+  }
+  &--btt {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    border-top: var(--mo-border-width) solid var(--mo-border-color);
+    border-radius: 22px 18px 0 0 / 14px 16px 0 0;
+    box-shadow: 0 -5px 0 var(--mo-color-primary-light-7);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 12px 24px;
+    border-bottom: 1.5px dashed var(--mo-color-line);
+  }
+  &__title {
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-lg);
+  }
+  &__close {
+    @include reset-button;
+    display: inline-flex;
+    font-size: 20px;
+    color: var(--mo-color-ink-3);
+    transition: transform var(--mo-duration) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-primary);
+      transform: rotate(90deg);
+    }
+  }
+  &__body {
+    flex: 1;
+    overflow: auto;
+    padding: 20px 24px;
+    line-height: var(--mo-line-height);
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 12px 24px 20px;
+    .mo-button + .mo-button {
+      margin-left: 0;
+    }
+  }
+}
+
+$dirs: (
+  rtl: translateX(100%),
+  ltr: translateX(-100%),
+  ttb: translateY(-100%),
+  btt: translateY(100%),
+);
+@each $dir, $transform in $dirs {
+  .mo-drawer-#{$dir}-enter-active,
+  .mo-drawer-#{$dir}-leave-active {
+    transition: opacity var(--mo-duration) var(--mo-ease-ink);
+    .mo-drawer {
+      transition: transform var(--mo-duration-slow) var(--mo-ease-ink);
+    }
+  }
+  .mo-drawer-#{$dir}-enter-from,
+  .mo-drawer-#{$dir}-leave-to {
+    opacity: 0;
+    .mo-drawer {
+      transform: $transform;
+    }
+  }
+}

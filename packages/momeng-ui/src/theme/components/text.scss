@@ -1,0 +1,91 @@
+@use '../mixins' as *;
+
+.mo-text {
+  font-family: var(--mo-font-family);
+  color: var(--mo-text-color);
+  line-height: var(--mo-line-height);
+
+  @each $t in primary, success, warning, danger, info {
+    &--#{$t} {
+      color: var(--mo-color-#{$t});
+    }
+  }
+  &--secondary {
+    color: var(--mo-text-color-secondary);
+  }
+  &--placeholder {
+    color: var(--mo-text-color-placeholder);
+  }
+  @each $s in xs, sm, base, md, lg, xl, 2xl, 3xl {
+    &--size-#{$s} {
+      font-size: var(--mo-font-size-#{$s});
+    }
+  }
+  &--font-display {
+    font-family: var(--mo-font-family-display);
+    letter-spacing: 0.04em;
+  }
+  &--font-brush {
+    font-family: var(--mo-font-family-brush);
+    letter-spacing: 0.08em;
+  }
+  &.is-bold {
+    font-weight: 700;
+  }
+  &.is-mark {
+    --mo-text-mark: var(--mo-color-warning-light-5);
+    padding: 0 0.2em;
+    background: linear-gradient(
+      100deg,
+      transparent 0.2em,
+      var(--mo-text-mark) 0.35em,
+      var(--mo-text-mark) calc(100% - 0.4em),
+      transparent calc(100% - 0.15em)
+    );
+    background-size: 100% 0.62em;
+    background-position: 0 88%;
+    background-repeat: no-repeat;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
+  }
+  &--mark-pink {
+    --mo-text-mark: var(--mo-color-pink-light-3);
+  }
+  &--mark-green {
+    --mo-text-mark: var(--mo-color-success-light-7);
+  }
+  &--mark-blue {
+    --mo-text-mark: var(--mo-color-info-light-7);
+  }
+  &.is-wavy {
+    text-decoration: underline wavy var(--mo-color-primary);
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.3em;
+  }
+  &.is-emphasis {
+    text-emphasis: filled dot var(--mo-color-primary);
+    -webkit-text-emphasis: filled dot var(--mo-color-primary);
+    text-emphasis-position: under right;
+    -webkit-text-emphasis-position: under;
+  }
+  &.is-delete {
+    text-decoration: line-through;
+    text-decoration-color: var(--mo-color-primary);
+    text-decoration-thickness: 2px;
+  }
+  &.is-truncated {
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: bottom;
+    @include ellipsis;
+  }
+  &.is-line-clamp {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  &.is-vertical {
+    writing-mode: vertical-rl;
+    letter-spacing: 0.2em;
+  }
+}

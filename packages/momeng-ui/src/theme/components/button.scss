@@ -1,0 +1,169 @@
+@use '../mixins' as *;
+
+$types: primary, success, warning, danger, info;
+
+.mo-button {
+  --mo-button-bg: var(--mo-color-paper-light);
+  --mo-button-text: var(--mo-text-color);
+  --mo-button-border: var(--mo-border-color);
+  --mo-button-shadow: var(--mo-shadow-color);
+  --mo-button-hover-bg: var(--mo-color-paper-deep);
+  --mo-button-height: var(--mo-size-default);
+
+  @include reset-button;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: var(--mo-button-height);
+  padding: 0 18px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--mo-button-text);
+  background-color: var(--mo-button-bg);
+  border: var(--mo-border-width) solid var(--mo-button-border);
+  border-radius: var(--mo-radius-hand);
+  box-shadow: 2px 3px 0 var(--mo-button-shadow);
+  user-select: none;
+  vertical-align: middle;
+  text-decoration: none;
+  @include stamp-press;
+
+  &:not(.is-disabled):hover {
+    background-color: var(--mo-button-hover-bg);
+    box-shadow: 3px 5px 0 var(--mo-button-shadow);
+  }
+  &:focus-visible {
+    @include focus-ring;
+  }
+
+  & + & {
+    margin-left: 12px;
+  }
+
+  &__icon {
+    display: inline-flex;
+    font-size: 1.15em;
+  }
+
+  // —— 语义类型 ——
+  @each $t in $types {
+    &--#{$t} {
+      --mo-button-bg: var(--mo-color-#{$t});
+      --mo-button-text: var(--mo-color-white);
+      --mo-button-hover-bg: var(--mo-color-#{$t}-light-3);
+      &.is-plain {
+        --mo-button-bg: var(--mo-color-#{$t}-light-9);
+        --mo-button-text: var(--mo-color-#{$t}-dark-2);
+        --mo-button-border: var(--mo-color-#{$t});
+        --mo-button-shadow: var(--mo-color-#{$t}-light-5);
+        --mo-button-hover-bg: var(--mo-color-#{$t}-light-8);
+      }
+      &.is-text {
+        --mo-button-text: var(--mo-color-#{$t});
+        --mo-button-hover-bg: var(--mo-color-#{$t}-light-9);
+      }
+    }
+  }
+  &--warning:not(.is-plain):not(.is-text) {
+    --mo-button-text: var(--mo-color-ink);
+  }
+  html.dark &--warning:not(.is-plain):not(.is-text) {
+    --mo-button-text: #2d2926;
+  }
+
+  &.is-plain.mo-button--default {
+    --mo-button-bg: transparent;
+    --mo-button-shadow: var(--mo-color-line);
+  }
+
+  // —— 形态 ——
+  &.is-dashed {
+    border-style: dashed;
+    box-shadow: none;
+    &:not(.is-disabled):hover {
+      box-shadow: none;
+      transform: none;
+      border-color: var(--mo-color-primary);
+      color: var(--mo-color-primary);
+    }
+  }
+  &.is-text {
+    --mo-button-bg: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    padding: 0 10px;
+    &:not(.is-disabled):hover {
+      box-shadow: none;
+      transform: none;
+    }
+  }
+  &.is-round {
+    border-radius: var(--mo-radius-round);
+  }
+  &.is-circle {
+    width: var(--mo-button-height);
+    padding: 0;
+    border-radius: 48% 52% 50% 50% / 52% 48% 52% 48%;
+  }
+  &.is-icon-only:not(.is-circle) {
+    width: var(--mo-button-height);
+    padding: 0;
+  }
+  &.is-block {
+    display: flex;
+    width: 100%;
+  }
+  & + &.is-block {
+    margin-left: 0;
+    margin-top: 12px;
+  }
+  &.is-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    box-shadow: none;
+  }
+  &.is-loading {
+    cursor: progress;
+  }
+
+  // —— 尺寸 ——
+  &--small {
+    --mo-button-height: var(--mo-size-small);
+    padding: 0 12px;
+    font-size: var(--mo-font-size-sm);
+  }
+  &--large {
+    --mo-button-height: var(--mo-size-large);
+    padding: 0 24px;
+    font-size: var(--mo-font-size-md);
+  }
+}
+
+.mo-button-group {
+  display: inline-flex;
+  vertical-align: middle;
+  .mo-button {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    &:not(:first-child) {
+      margin-left: calc(var(--mo-border-width) * -1);
+    }
+    &:first-child {
+      border-radius: 14px 4px 4px 16px / 16px 4px 4px 14px;
+    }
+    &:last-child {
+      border-radius: 4px 16px 14px 4px / 4px 14px 16px 4px;
+    }
+    &:not(.is-disabled):hover {
+      z-index: 1;
+      box-shadow: none;
+    }
+  }
+}

@@ -1,0 +1,194 @@
+@use '../mixins' as *;
+
+.mo-input {
+  --mo-input-height: var(--mo-size-default);
+  --mo-input-border: var(--mo-border-color);
+  --mo-input-bg: var(--mo-color-paper-light);
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  vertical-align: middle;
+
+  &__wrapper {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    height: var(--mo-input-height);
+    padding: 0 12px;
+    background-color: var(--mo-input-bg);
+    border: var(--mo-border-width) solid var(--mo-input-border);
+    border-radius: var(--mo-radius-hand-alt);
+    box-sizing: border-box;
+    transition:
+      border-color var(--mo-duration) var(--mo-ease-ink),
+      box-shadow var(--mo-duration) var(--mo-ease-ink);
+  }
+  &:not(.is-disabled) &__wrapper:hover {
+    box-shadow: 2px 2px 0 var(--mo-color-line);
+  }
+  &.is-focus &__wrapper,
+  &.is-focus &__textarea {
+    --mo-input-border: var(--mo-color-primary);
+    box-shadow: 3px 3px 0 var(--mo-color-primary-light-7) !important;
+  }
+
+  &__inner {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    font: inherit;
+    color: var(--mo-text-color);
+    background: none;
+    border: none;
+    outline: none;
+    &::placeholder {
+      color: var(--mo-text-color-placeholder);
+    }
+    &[type='password'] {
+      letter-spacing: 0.2em;
+    }
+  }
+
+  &__prefix,
+  &__suffix {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    color: var(--mo-color-ink-3);
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+  &__clear,
+  &__password {
+    @include reset-button;
+    display: inline-flex;
+    color: var(--mo-color-ink-3);
+    transition:
+      color var(--mo-duration-fast),
+      transform var(--mo-duration-fast) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-primary);
+      transform: rotate(90deg) scale(1.1);
+    }
+  }
+  &__password:hover {
+    transform: scale(1.15);
+  }
+  &__count {
+    font-size: var(--mo-font-size-xs);
+    color: var(--mo-color-ink-3);
+    font-family: var(--mo-font-family-mono);
+    &--textarea {
+      position: absolute;
+      right: 12px;
+      bottom: 6px;
+      padding: 0 4px;
+      background: var(--mo-input-bg);
+    }
+  }
+
+  // —— 复合输入框 ——
+  &__prepend,
+  &__append {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 14px;
+    background: var(--mo-color-paper-deep);
+    border: var(--mo-border-width) solid var(--mo-border-color);
+    color: var(--mo-text-color-secondary);
+    white-space: nowrap;
+    .mo-button {
+      margin: 0 -14px;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      height: 100%;
+    }
+  }
+  &__prepend {
+    border-right: 0;
+    border-radius: 14px 0 0 16px / 16px 0 0 14px;
+  }
+  &__append {
+    border-left: 0;
+    border-radius: 0 16px 14px 0 / 0 14px 16px 0;
+  }
+  &.is-group &__prepend + &__wrapper {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  &.is-group &__wrapper:has(+ .mo-input__append) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  // —— 多行：一页信笺 ——
+  &__textarea {
+    --mo-input-line: 26px;
+    display: block;
+    width: 100%;
+    padding: 5px 12px;
+    font: inherit;
+    line-height: var(--mo-input-line);
+    color: var(--mo-text-color);
+    background-color: var(--mo-input-bg);
+    border: var(--mo-border-width) solid var(--mo-input-border);
+    border-radius: var(--mo-radius-wobble);
+    box-sizing: border-box;
+    outline: none;
+    resize: vertical;
+    transition:
+      border-color var(--mo-duration) var(--mo-ease-ink),
+      box-shadow var(--mo-duration) var(--mo-ease-ink);
+    &::placeholder {
+      color: var(--mo-text-color-placeholder);
+    }
+    &.is-lined {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent calc(var(--mo-input-line) - 1px),
+        var(--mo-color-primary-light-8) calc(var(--mo-input-line) - 1px),
+        var(--mo-color-primary-light-8) var(--mo-input-line)
+      );
+      background-position: 0 5px;
+      background-attachment: local;
+    }
+  }
+
+  &.is-disabled {
+    cursor: not-allowed;
+    .mo-input__wrapper,
+    .mo-input__textarea {
+      --mo-input-bg: var(--mo-color-paper-deep);
+      --mo-input-border: var(--mo-color-line);
+      color: var(--mo-text-color-placeholder);
+    }
+    .mo-input__inner,
+    .mo-input__textarea {
+      cursor: not-allowed;
+      color: var(--mo-text-color-placeholder);
+    }
+  }
+
+  &--small {
+    --mo-input-height: var(--mo-size-small);
+    font-size: var(--mo-font-size-sm);
+    .mo-input__wrapper {
+      padding: 0 10px;
+    }
+  }
+  &--large {
+    --mo-input-height: var(--mo-size-large);
+    font-size: var(--mo-font-size-md);
+    .mo-input__wrapper {
+      padding: 0 16px;
+    }
+  }
+}

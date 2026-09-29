@@ -1,0 +1,94 @@
+.mo-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--mo-color-primary);
+  font-family: var(--mo-font-family);
+
+  // 圆相：一笔画圆，起笔重、收笔轻
+  &__enso {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 4.5;
+    stroke-linecap: round;
+    animation: mo-spin 2.4s linear infinite;
+    path {
+      stroke-dasharray: 120;
+      stroke-dashoffset: 120;
+      animation: mo-enso 1.6s var(--mo-ease-ink) infinite;
+    }
+  }
+  &__dots {
+    display: inline-flex;
+    gap: 6px;
+    i {
+      width: 10px;
+      height: 10px;
+      background: currentColor;
+      border-radius: 50% 44% 54% 46%;
+      animation: mo-dot-bounce 1s var(--mo-ease-bounce) infinite;
+      &:nth-child(2) {
+        animation-delay: 0.15s;
+        background: var(--mo-color-ink);
+      }
+      &:nth-child(3) {
+        animation-delay: 0.3s;
+        background: var(--mo-color-pink);
+      }
+    }
+  }
+  &__text {
+    margin: 0;
+    font-size: var(--mo-font-size-sm);
+    color: var(--mo-text-color-secondary);
+    letter-spacing: 0.1em;
+  }
+}
+.mo-loading-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--mo-color-paper) 78%, transparent);
+  animation: mo-loading-in var(--mo-duration) var(--mo-ease-ink);
+  border-radius: inherit;
+  &.is-fullscreen {
+    position: fixed;
+  }
+  &.is-leaving {
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+}
+@keyframes mo-enso {
+  0% {
+    stroke-dashoffset: 120;
+    stroke-width: 5.5;
+  }
+  60% {
+    stroke-dashoffset: 8;
+    stroke-width: 3.5;
+  }
+  100% {
+    stroke-dashoffset: -120;
+    stroke-width: 1.5;
+  }
+}
+@keyframes mo-dot-bounce {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  40% {
+    transform: translateY(-10px) scale(1.1, 0.9);
+  }
+}
+@keyframes mo-loading-in {
+  from {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,34 @@
+@use '../mixins' as *;
+
+.mo-backtop {
+  @include reset-button;
+  position: fixed;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 6px 6px 4px;
+  font-family: var(--mo-font-family);
+  background: var(--mo-color-paper-light);
+  border: var(--mo-border-width) solid var(--mo-border-color);
+  border-radius: 50% 50% 46% 54% / 56% 56% 44% 44%;
+  box-shadow: var(--mo-shadow-stamp);
+  transition: transform var(--mo-duration) var(--mo-ease-bounce);
+  &:hover {
+    transform: translateY(-6px) rotate(-6deg);
+  }
+  &__text {
+    font-size: 11px;
+    color: var(--mo-text-color-secondary);
+  }
+}
+.mo-backtop-enter-active,
+.mo-backtop-leave-active {
+  transition: all var(--mo-duration) var(--mo-ease-bounce);
+}
+.mo-backtop-enter-from,
+.mo-backtop-leave-to {
+  opacity: 0;
+  transform: translateY(30px) scale(0.6);
+}

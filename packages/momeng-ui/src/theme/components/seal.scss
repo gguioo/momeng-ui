@@ -1,0 +1,39 @@
+.mo-seal {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: middle;
+  transform: rotate(var(--mo-seal-angle, 0deg));
+  mix-blend-mode: multiply;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  &__char {
+    font-family: var(--mo-font-family-brush);
+    font-weight: 700;
+  }
+  &.is-stamp {
+    animation: mo-seal-stamp 0.55s var(--mo-ease-bounce) both;
+  }
+  html.dark & {
+    mix-blend-mode: normal;
+  }
+}
+
+@keyframes mo-seal-stamp {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--mo-seal-angle, 0deg)) scale(1.9) translateY(-12%);
+    filter: blur(2px);
+  }
+  55% {
+    opacity: 1;
+    transform: rotate(var(--mo-seal-angle, 0deg)) scale(0.92);
+    filter: blur(0);
+  }
+  100% {
+    transform: rotate(var(--mo-seal-angle, 0deg)) scale(1);
+  }
+}

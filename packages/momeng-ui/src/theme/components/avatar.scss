@@ -1,0 +1,39 @@
+.mo-avatar {
+  --mo-avatar-size: 40px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--mo-avatar-size);
+  height: var(--mo-avatar-size);
+  font-family: var(--mo-font-family-display);
+  font-size: calc(var(--mo-avatar-size) * 0.42);
+  color: var(--mo-color-ink);
+  background: var(--mo-color-pink-light-5);
+  border: var(--mo-border-width) solid var(--mo-border-color);
+  box-sizing: border-box;
+  overflow: hidden;
+  flex-shrink: 0;
+  vertical-align: middle;
+  &--circle {
+    border-radius: 50% 47% 52% 48% / 48% 52% 47% 50%;
+  }
+  &--square {
+    border-radius: var(--mo-radius-wobble);
+  }
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .mo-icon {
+    font-size: calc(var(--mo-avatar-size) * 0.5);
+  }
+  .mo-mascot {
+    margin-top: 12%;
+  }
+  &__text {
+    white-space: nowrap;
+    transform: scale(0.95);
+  }
+}

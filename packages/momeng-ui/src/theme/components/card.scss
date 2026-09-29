@@ -1,0 +1,103 @@
+@use '../mixins' as *;
+
+.mo-card {
+  position: relative;
+  font-family: var(--mo-font-family);
+  color: var(--mo-text-color);
+  background-color: var(--mo-color-paper-light);
+  border: var(--mo-border-width) solid var(--mo-border-color);
+  border-radius: var(--mo-radius-wobble);
+  box-sizing: border-box;
+  transition:
+    transform var(--mo-duration) var(--mo-ease-bounce),
+    box-shadow var(--mo-duration) var(--mo-ease-ink);
+
+  &.is-textured {
+    @include paper-texture;
+  }
+  &--shadow-always {
+    box-shadow: var(--mo-shadow-stamp);
+  }
+  &--shadow-hover:hover {
+    box-shadow: var(--mo-shadow-stamp);
+  }
+  &.is-hoverable {
+    cursor: pointer;
+    &:hover {
+      transform: translate(-2px, -3px) rotate(-0.4deg);
+      box-shadow: var(--mo-shadow-stamp-lg);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 20px 12px;
+    // 手绘下划线
+    background-image: linear-gradient(var(--mo-color-line), var(--mo-color-line));
+    background-size: calc(100% - 32px) 1.5px;
+    background-position: 16px 100%;
+    background-repeat: no-repeat;
+  }
+  &__title {
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-lg);
+    letter-spacing: 0.04em;
+  }
+  &__extra {
+    font-size: var(--mo-font-size-sm);
+  }
+  &__body {
+    padding: 18px 20px;
+    line-height: var(--mo-line-height);
+  }
+  &__footer {
+    padding: 12px 20px 16px;
+    border-top: 1.5px dashed var(--mo-color-line);
+  }
+  &__seal {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  // 和纸胶带
+  &__tape {
+    --mo-tape: var(--mo-color-pink-light-3);
+    position: absolute;
+    top: -12px;
+    right: 28px;
+    width: 76px;
+    height: 24px;
+    background: var(--mo-tape);
+    opacity: 0.85;
+    transform: rotate(4deg);
+    // 锯齿撕边
+    -webkit-mask:
+      conic-gradient(from -45deg at left, #0000 25%, #000 0) 0 50% / 51% 6px repeat-y,
+      conic-gradient(from 135deg at right, #0000 25%, #000 0) 100% 50% / 51% 6px repeat-y;
+    mask:
+      conic-gradient(from -45deg at left, #0000 25%, #000 0) 0 50% / 51% 6px repeat-y,
+      conic-gradient(from 135deg at right, #0000 25%, #000 0) 100% 50% / 51% 6px repeat-y;
+    background-image: repeating-linear-gradient(
+      45deg,
+      transparent 0 6px,
+      rgba(255, 255, 255, 0.35) 6px 9px
+    );
+    background-color: var(--mo-tape);
+    z-index: 1;
+  }
+  &__tape--green {
+    --mo-tape: var(--mo-color-success-light-5);
+  }
+  &__tape--blue {
+    --mo-tape: var(--mo-color-info-light-5);
+  }
+  &__tape--yellow {
+    --mo-tape: var(--mo-color-warning-light-5);
+  }
+}

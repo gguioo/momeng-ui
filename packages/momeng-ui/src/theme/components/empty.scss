@@ -1,0 +1,32 @@
+.mo-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 0;
+  font-family: var(--mo-font-family);
+  text-align: center;
+  &__image {
+    position: relative;
+    // 墨团脚下的影子
+    &::after {
+      content: '';
+      display: block;
+      width: 60%;
+      height: 8px;
+      margin: 2px auto 0;
+      border-radius: 50%;
+      background: var(--mo-color-ink);
+      opacity: 0.08;
+    }
+  }
+  &__description {
+    margin: 10px 0 0;
+    font-size: var(--mo-font-size-sm);
+    color: var(--mo-text-color-placeholder);
+    letter-spacing: 0.06em;
+  }
+  &__bottom {
+    margin-top: 16px;
+  }
+}

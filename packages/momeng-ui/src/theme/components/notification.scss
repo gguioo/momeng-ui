@@ -1,0 +1,112 @@
+@use '../mixins' as *;
+
+.mo-notification-container {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  pointer-events: none;
+  &--top-right {
+    top: 20px;
+    right: 20px;
+  }
+  &--top-left {
+    top: 20px;
+    left: 20px;
+  }
+  &--bottom-right {
+    bottom: 20px;
+    right: 20px;
+  }
+  &--bottom-left {
+    bottom: 20px;
+    left: 20px;
+  }
+}
+
+.mo-notification {
+  --mo-notification-color: var(--mo-color-ink-3);
+  position: relative;
+  display: flex;
+  gap: 12px;
+  width: 330px;
+  max-width: calc(100vw - 40px);
+  padding: 14px 14px 14px 16px;
+  font-family: var(--mo-font-family);
+  color: var(--mo-text-color);
+  background-color: var(--mo-color-paper-light);
+  @include paper-texture;
+  border: var(--mo-border-width) solid var(--mo-border-color);
+  border-radius: var(--mo-radius-wobble);
+  box-shadow: var(--mo-shadow-float);
+  box-sizing: border-box;
+  pointer-events: auto;
+  @each $t in primary, success, warning, danger, info {
+    &--#{$t} {
+      --mo-notification-color: var(--mo-color-#{$t});
+    }
+  }
+  // 顶部一条彩色纸胶带
+  &::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    width: 54px;
+    height: 14px;
+    background: var(--mo-notification-color);
+    opacity: 0.55;
+    transform: rotate(-4deg);
+  }
+  &__icon {
+    font-size: 24px;
+    color: var(--mo-notification-color);
+    flex-shrink: 0;
+  }
+  &__mascot {
+    flex-shrink: 0;
+  }
+  &__main {
+    flex: 1;
+    min-width: 0;
+  }
+  &__title {
+    margin-bottom: 4px;
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-md);
+  }
+  &__content {
+    font-size: var(--mo-font-size-sm);
+    line-height: 1.7;
+    color: var(--mo-text-color-secondary);
+  }
+  &__close {
+    @include reset-button;
+    align-self: flex-start;
+    display: inline-flex;
+    color: var(--mo-color-ink-3);
+    transition: transform var(--mo-duration) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-primary);
+      transform: rotate(90deg);
+    }
+  }
+}
+.mo-notification-right-enter-active,
+.mo-notification-left-enter-active {
+  transition: all var(--mo-duration-slow) var(--mo-ease-bounce);
+}
+.mo-notification-right-leave-active,
+.mo-notification-left-leave-active {
+  transition: all var(--mo-duration) var(--mo-ease-ink);
+}
+.mo-notification-right-enter-from,
+.mo-notification-right-leave-to {
+  opacity: 0;
+  transform: translateX(60%) rotate(4deg);
+}
+.mo-notification-left-enter-from,
+.mo-notification-left-leave-to {
+  opacity: 0;
+  transform: translateX(-60%) rotate(-4deg);
+}

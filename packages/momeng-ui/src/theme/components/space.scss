@@ -1,0 +1,20 @@
+.mo-space {
+  display: inline-flex;
+  &--vertical {
+    flex-direction: column;
+  }
+  &.is-wrap {
+    flex-wrap: wrap;
+  }
+  &.is-fill {
+    display: flex;
+    width: 100%;
+    > * {
+      flex: 1;
+    }
+  }
+  // 相邻按钮的外边距交给 gap 管理
+  > .mo-button + .mo-button {
+    margin-left: 0;
+  }
+}

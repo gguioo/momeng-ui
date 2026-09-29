@@ -1,0 +1,49 @@
+{
+  "name": "momeng-ui",
+  "version": "0.1.0",
+  "description": "墨萌 MoMeng UI —— 手绘 · 古典 · 卡哇伊的 Vue 3 组件库",
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "ui",
+    "hand-drawn",
+    "kawaii",
+    "chinese-style"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "main": "./dist/momeng-ui.umd.cjs",
+  "module": "./dist/momeng-ui.js",
+  "types": "./dist/types/index.d.ts",
+  "unpkg": "./dist/momeng-ui.umd.cjs",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/momeng-ui.js",
+      "require": "./dist/momeng-ui.umd.cjs"
+    },
+    "./style.css": "./dist/momeng-ui.css",
+    "./global": {
+      "types": "./global.d.ts"
+    },
+    "./fonts.css": "./fonts.css"
+  },
+  "files": [
+    "dist",
+    "global.d.ts",
+    "fonts.css"
+  ],
+  "scripts": {
+    "build": "vite build"
+  },
+  "peerDependencies": {
+    "vue": "^3.5.0"
+  },
+  "devDependencies": {
+    "vite-plugin-dts": "^4.5.4"
+  }
+}

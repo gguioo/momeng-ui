@@ -1,0 +1,211 @@
+// =============================================================
+//  墨萌 MoMeng UI · Design Tokens
+//  所有视觉决策都沉淀在这里。组件只消费变量，不写死颜色。
+// =============================================================
+
+// 中国传统色 —— 语义色映射
+$palette: (
+  'primary': #cf4a37,
+  // 朱砂 Cinnabar      主色：印章、行动点
+  'success': #6f9a5c,
+  // 竹青 Bamboo        成功、完成
+  'warning': #e3a23b,
+  // 藤黄 Gamboge       警示、提醒
+  'danger': #b3303d,
+  //  胭脂 Rouge         危险、错误
+  'info': #4f7391,
+  //    花青 Indigo        信息、中性提示
+  'pink': #f2a7b5, //    桃夭 Peach Bloom   萌点、强调装饰
+);
+
+$dark-palette: (
+  'primary': #e8664f,
+  'success': #8cb877,
+  'warning': #f0b755,
+  'danger': #e0566a,
+  'info': #7fa3c2,
+  'pink': #f5b8c4,
+);
+
+// 由基础色生成 light-3/5/7/8/9 与 dark-2 梯度（与 mix-base 混合，暗色主题自动适配）
+@mixin color-scales($names) {
+  @each $name in $names {
+    --mo-color-#{$name}-light-3: color-mix(
+      in srgb,
+      var(--mo-color-#{$name}) 70%,
+      var(--mo-mix-base)
+    );
+    --mo-color-#{$name}-light-5: color-mix(
+      in srgb,
+      var(--mo-color-#{$name}) 50%,
+      var(--mo-mix-base)
+    );
+    --mo-color-#{$name}-light-7: color-mix(
+      in srgb,
+      var(--mo-color-#{$name}) 30%,
+      var(--mo-mix-base)
+    );
+    --mo-color-#{$name}-light-8: color-mix(
+      in srgb,
+      var(--mo-color-#{$name}) 20%,
+      var(--mo-mix-base)
+    );
+    --mo-color-#{$name}-light-9: color-mix(
+      in srgb,
+      var(--mo-color-#{$name}) 10%,
+      var(--mo-mix-base)
+    );
+    --mo-color-#{$name}-dark-2: color-mix(in srgb, var(--mo-color-#{$name}) 80%, var(--mo-mix-ink));
+  }
+}
+
+$semantic: ('primary', 'success', 'warning', 'danger', 'info', 'pink');
+
+@mixin light-colors {
+  @each $name, $value in $palette {
+    --mo-color-#{$name}: #{$value};
+  }
+
+  // —— 纸与墨 ——
+  --mo-color-paper: #faf5e9; //       宣纸：页面底色
+  --mo-color-paper-light: #fffdf6; // 素绢：卡片、输入框
+  --mo-color-paper-deep: #f1e7d2; //  缃色：悬停、禁用、斑马纹
+  --mo-color-ink: #2d2926; //         松烟墨：正文、描边
+  --mo-color-ink-2: #564f49; //       淡墨：次要文字
+  --mo-color-ink-3: #8a8078; //       枯墨：辅助说明
+  --mo-color-ink-4: #b9ae9f; //       飞白：占位、禁用文字
+  --mo-color-line: #ddd1bc; //        界格：分割线、弱描边
+  --mo-color-white: #fffdf6;
+  --mo-mix-base: #fffdf6;
+  --mo-mix-ink: #2d2926;
+
+  --mo-mask-color: rgba(45, 41, 38, 0.42);
+  --mo-shadow-color: var(--mo-color-ink);
+  --mo-shadow-float: 4px 5px 0 rgba(45, 41, 38, 0.9), 0 16px 36px -14px rgba(45, 41, 38, 0.3);
+}
+
+// 派生变量：引用了其它变量，需要在每个主题作用域内重新声明才能正确继承
+@mixin derived-tokens {
+  --mo-bg-color: var(--mo-color-paper);
+  --mo-bg-color-overlay: var(--mo-color-paper-light);
+  --mo-text-color: var(--mo-color-ink);
+  --mo-text-color-secondary: var(--mo-color-ink-2);
+  --mo-text-color-placeholder: var(--mo-color-ink-4);
+  --mo-border-color: var(--mo-color-ink);
+  --mo-border-color-light: var(--mo-color-line);
+  --mo-border: var(--mo-border-width) solid var(--mo-border-color);
+  --mo-shadow-stamp-sm: 2px 2px 0 var(--mo-shadow-color);
+  --mo-shadow-stamp: 3px 4px 0 var(--mo-shadow-color);
+  --mo-shadow-stamp-lg: 5px 6px 0 var(--mo-shadow-color);
+  @include color-scales($semantic);
+}
+
+:root {
+  @include light-colors;
+
+  // —— 字体：文楷为骨，快乐体为趣，行书为魂 ——
+  --mo-font-family:
+    'LXGW WenKai', 'LXGW WenKai Screen', 'Kaiti SC', 'STKaiti', 'KaiTi', 'Noto Serif SC', serif;
+  --mo-font-family-display: 'ZCOOL KuaiLe', 'LXGW WenKai', 'Kaiti SC', 'STKaiti', cursive;
+  --mo-font-family-brush:
+    'Ma Shan Zheng', 'Zhi Mang Xing', 'STXingkai', 'Kaiti SC', 'KaiTi', cursive;
+  --mo-font-family-mono: 'JetBrains Mono', 'Fira Code', Menlo, Consolas, monospace;
+
+  --mo-font-size-xs: 12px;
+  --mo-font-size-sm: 13px;
+  --mo-font-size-base: 14px;
+  --mo-font-size-md: 16px;
+  --mo-font-size-lg: 18px;
+  --mo-font-size-xl: 22px;
+  --mo-font-size-2xl: 28px;
+  --mo-font-size-3xl: 36px;
+  --mo-line-height: 1.7;
+
+  // —— 间距：4px 基准，取「一寸」之意 ——
+  --mo-space-1: 4px;
+  --mo-space-2: 8px;
+  --mo-space-3: 12px;
+  --mo-space-4: 16px;
+  --mo-space-5: 20px;
+  --mo-space-6: 24px;
+  --mo-space-8: 32px;
+  --mo-space-10: 40px;
+
+  // —— 控件尺寸 ——
+  --mo-size-small: 28px;
+  --mo-size-default: 36px;
+  --mo-size-large: 44px;
+
+  // —— 描边：一笔墨线 ——
+  --mo-border-width: 2px;
+
+  // —— 圆角：手绘的不规则 ——
+  --mo-radius-hand: 12px 18px 10px 20px / 16px 10px 18px 12px;
+  --mo-radius-hand-alt: 18px 12px 20px 10px / 10px 18px 12px 16px;
+  --mo-radius-wobble: 12px 16px 10px 18px / 16px 10px 18px 12px;
+  --mo-radius-wobble-sm: 4px 6px 3px 7px / 6px 3px 7px 4px;
+  --mo-radius-sm: 6px;
+  --mo-radius-md: 10px;
+  --mo-radius-lg: 16px;
+  --mo-radius-round: 999px;
+
+  // —— 阴影：钤印般的错位实影 + 纸张的柔影 ——
+  --mo-shadow-soft: 0 10px 30px -12px rgba(45, 41, 38, 0.28);
+
+  // —— 动效：Q 弹是「萌」，舒缓是「雅」 ——
+  --mo-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --mo-ease-ink: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --mo-duration-fast: 150ms;
+  --mo-duration: 250ms;
+  --mo-duration-slow: 420ms;
+
+  // —— 层级 ——
+  --mo-z-popper: 2000;
+
+  // —— 纹理 ——
+  --mo-texture-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.35 0 0 0 0 0.28 0 0 0 0 0.2 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --mo-brush-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'%3E%3Cpath d='M1 6.5C40 3.6 90 4.8 150 4.4s110-1.2 148 1.3c1.6.4 1.2 1.7-.3 1.9-45 2.5-96 2.3-150 2.8S30 11 3 8.6C.4 8.3 0 6.8 1 6.5z'/%3E%3C/svg%3E");
+  --mo-wave-line: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 6'%3E%3Cpath d='M0 3c2.5 0 2.5-2 5-2s2.5 2 5 2 2.5-2 5-2 2.5 2 5 2' fill='none' stroke='black' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+
+  @include derived-tokens;
+}
+
+// 局部亮色（在暗色页面中嵌入亮色区域）
+[data-mo-theme='light'] {
+  @include light-colors;
+  @include derived-tokens;
+  color-scheme: light;
+}
+
+// 墨夜 · 暗色主题
+html.dark,
+[data-mo-theme='dark'] {
+  @each $name, $value in $dark-palette {
+    --mo-color-#{$name}: #{$value};
+  }
+  --mo-color-paper: #1d1a18;
+  --mo-color-paper-light: #262220;
+  --mo-color-paper-deep: #332d29;
+  --mo-color-ink: #efe6d6;
+  --mo-color-ink-2: #cdc2b2;
+  --mo-color-ink-3: #978c80;
+  --mo-color-ink-4: #6b625a;
+  --mo-color-line: #4a423c;
+  --mo-color-white: #fffdf6;
+  --mo-mix-base: #262220;
+  --mo-mix-ink: #f6efe2; // 暗色下「加深」意味着更亮
+  --mo-shadow-color: #0b0a09;
+  --mo-mask-color: rgba(0, 0, 0, 0.6);
+  --mo-shadow-float: 4px 5px 0 #0b0a09, 0 16px 36px -14px rgba(0, 0, 0, 0.6);
+  @include derived-tokens;
+  color-scheme: dark;
+}
+
+// 工整模式：关闭手绘不规则，适合严肃的后台场景
+.mo-tidy,
+[data-mo-tidy] {
+  --mo-radius-hand: var(--mo-radius-md);
+  --mo-radius-hand-alt: var(--mo-radius-md);
+  --mo-radius-wobble: var(--mo-radius-md);
+  --mo-radius-wobble-sm: var(--mo-radius-sm);
+}

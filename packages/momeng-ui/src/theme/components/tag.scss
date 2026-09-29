@@ -1,0 +1,87 @@
+@use '../mixins' as *;
+
+.mo-tag {
+  --mo-tag-color: var(--mo-color-ink-2);
+  --mo-tag-height: 26px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: var(--mo-tag-height);
+  padding: 0 10px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-xs);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1.5px solid var(--mo-tag-color);
+  border-radius: var(--mo-radius-hand);
+  box-sizing: border-box;
+  transition: transform var(--mo-duration) var(--mo-ease-bounce);
+
+  @each $t in primary, success, warning, danger, info {
+    &--#{$t} {
+      --mo-tag-color: var(--mo-color-#{$t});
+    }
+  }
+  // 浅色：淡彩
+  &--light {
+    color: color-mix(in srgb, var(--mo-tag-color) 80%, var(--mo-mix-ink));
+    background: color-mix(in srgb, var(--mo-tag-color) 12%, var(--mo-mix-base));
+    border-color: color-mix(in srgb, var(--mo-tag-color) 45%, var(--mo-mix-base));
+  }
+  // 实心：浓墨
+  &--dark {
+    color: var(--mo-color-white);
+    background: var(--mo-tag-color);
+    border-color: var(--mo-color-ink);
+    box-shadow: 1.5px 1.5px 0 var(--mo-shadow-color);
+  }
+  &--dark.mo-tag--warning {
+    color: #2d2926;
+  }
+  // 描边：白描
+  &--plain {
+    color: var(--mo-tag-color);
+    background: transparent;
+    border-style: dashed;
+  }
+  &.is-round {
+    border-radius: var(--mo-radius-round);
+  }
+  &:hover {
+    transform: rotate(-2deg);
+  }
+  &__icon {
+    font-size: 1.15em;
+  }
+  &__close {
+    @include reset-button;
+    display: inline-flex;
+    margin-right: -4px;
+    padding: 1px;
+    font-size: 12px;
+    border-radius: 50%;
+    transition:
+      background var(--mo-duration-fast),
+      transform var(--mo-duration-fast) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-white);
+      background: var(--mo-tag-color);
+      transform: rotate(90deg);
+    }
+  }
+  &--dark &__close:hover {
+    color: var(--mo-tag-color);
+    background: var(--mo-color-white);
+  }
+  &--small {
+    --mo-tag-height: 22px;
+    padding: 0 7px;
+  }
+  &--large {
+    --mo-tag-height: 32px;
+    padding: 0 13px;
+    font-size: var(--mo-font-size-sm);
+  }
+}

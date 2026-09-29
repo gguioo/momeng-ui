@@ -1,0 +1,22 @@
+@use '../mixins' as *;
+
+.mo-tooltip {
+  padding: 5px 11px;
+  font-size: var(--mo-font-size-xs);
+  letter-spacing: 0.04em;
+}
+.mo-popover {
+  max-width: none;
+  padding: 14px 16px;
+  font-size: var(--mo-font-size-sm);
+  @include paper-texture;
+  &__title {
+    margin-bottom: 8px;
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-md);
+    color: var(--mo-text-color);
+  }
+  &__content {
+    color: var(--mo-text-color-secondary);
+  }
+}

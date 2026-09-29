@@ -1,0 +1,123 @@
+@keyframes mo-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes mo-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6%) rotate(1.5deg);
+  }
+}
+@keyframes mo-wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  75% {
+    transform: rotate(6deg);
+  }
+}
+@keyframes mo-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-3px) rotate(-0.5deg);
+  }
+  75% {
+    transform: translateX(3px) rotate(0.5deg);
+  }
+}
+@keyframes mo-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes mo-ink-spread {
+  from {
+    clip-path: circle(0% at 50% 50%);
+  }
+  to {
+    clip-path: circle(75% at 50% 50%);
+  }
+}
+@keyframes mo-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+// ——— 通用过渡 ———
+.mo-fade-enter-active,
+.mo-fade-leave-active {
+  transition: opacity var(--mo-duration) var(--mo-ease-ink);
+}
+.mo-fade-enter-from,
+.mo-fade-leave-to {
+  opacity: 0;
+}
+
+// 弹层「啵」一下出现
+.mo-pop-enter-active {
+  transition:
+    opacity var(--mo-duration-fast) var(--mo-ease-ink),
+    transform var(--mo-duration) var(--mo-ease-bounce);
+}
+.mo-pop-leave-active {
+  transition:
+    opacity var(--mo-duration-fast) var(--mo-ease-ink),
+    transform var(--mo-duration-fast) var(--mo-ease-ink);
+}
+.mo-pop-enter-from,
+.mo-pop-leave-to {
+  opacity: 0;
+  transform: scale(0.88) translateY(4px);
+}
+
+// 折叠展开
+.mo-collapse-transition {
+  transition:
+    height var(--mo-duration) var(--mo-ease-ink),
+    padding var(--mo-duration) var(--mo-ease-ink);
+  overflow: hidden;
+}
+
+.mo-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [class*='mo-'],
+  [class*='mo-']::before,
+  [class*='mo-']::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

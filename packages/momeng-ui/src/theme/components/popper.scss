@@ -1,0 +1,87 @@
+.mo-popper__reference {
+  display: inline-block;
+}
+
+.mo-popper {
+  --mo-popper-bg: var(--mo-color-paper-light);
+  --mo-popper-text: var(--mo-text-color);
+  --mo-popper-border: var(--mo-border-color);
+  position: fixed;
+  top: 0;
+  left: 0;
+  max-width: min(360px, calc(100vw - 16px));
+  padding: 8px 12px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-sm);
+  line-height: 1.6;
+  color: var(--mo-popper-text);
+  background: var(--mo-popper-bg);
+  border: var(--mo-border-width) solid var(--mo-popper-border);
+  border-radius: var(--mo-radius-wobble);
+  box-shadow: var(--mo-shadow-float);
+  box-sizing: border-box;
+  word-break: break-word;
+
+  &--dark {
+    --mo-popper-bg: var(--mo-color-ink);
+    --mo-popper-text: var(--mo-color-paper);
+    --mo-popper-border: var(--mo-color-ink);
+    box-shadow: 3px 4px 0 var(--mo-color-primary-light-5);
+  }
+
+  &__arrow {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--mo-popper-bg);
+    border: var(--mo-border-width) solid var(--mo-popper-border);
+    box-sizing: border-box;
+    pointer-events: none;
+  }
+  &--top &__arrow {
+    bottom: -6px;
+    left: calc(50% - 5px);
+    border-top: 0;
+    border-left: 0;
+    transform: rotate(45deg);
+  }
+  &--bottom &__arrow {
+    top: -6px;
+    left: calc(50% - 5px);
+    border-bottom: 0;
+    border-right: 0;
+    transform: rotate(45deg);
+  }
+  &--left &__arrow {
+    right: -6px;
+    top: calc(50% - 5px);
+    border-bottom: 0;
+    border-left: 0;
+    transform: rotate(45deg);
+  }
+  &--right &__arrow {
+    left: -6px;
+    top: calc(50% - 5px);
+    border-top: 0;
+    border-right: 0;
+    transform: rotate(45deg);
+  }
+  &[data-placement$='-start'].mo-popper--top &__arrow,
+  &[data-placement$='-start'].mo-popper--bottom &__arrow {
+    left: 16px;
+  }
+  &[data-placement$='-end'].mo-popper--top &__arrow,
+  &[data-placement$='-end'].mo-popper--bottom &__arrow {
+    left: auto;
+    right: 16px;
+  }
+  &[data-placement$='-start'].mo-popper--left &__arrow,
+  &[data-placement$='-start'].mo-popper--right &__arrow {
+    top: 12px;
+  }
+  &[data-placement$='-end'].mo-popper--left &__arrow,
+  &[data-placement$='-end'].mo-popper--right &__arrow {
+    top: auto;
+    bottom: 12px;
+  }
+}

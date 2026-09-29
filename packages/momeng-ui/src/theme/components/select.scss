@@ -1,0 +1,165 @@
+@use '../mixins' as *;
+
+.mo-select {
+  --mo-input-height: var(--mo-size-default);
+  --mo-input-border: var(--mo-border-color);
+  display: inline-block;
+  width: 220px;
+  font-family: var(--mo-font-family);
+  font-size: var(--mo-font-size-base);
+  vertical-align: middle;
+
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: var(--mo-input-height);
+    padding: 0 10px 0 12px;
+    background: var(--mo-color-paper-light);
+    border: var(--mo-border-width) solid var(--mo-input-border);
+    border-radius: var(--mo-radius-hand-alt);
+    box-sizing: border-box;
+    cursor: pointer;
+    outline: none;
+    transition:
+      border-color var(--mo-duration),
+      box-shadow var(--mo-duration);
+    &:hover {
+      box-shadow: 2px 2px 0 var(--mo-color-line);
+    }
+    &:focus-visible {
+      --mo-input-border: var(--mo-color-primary);
+    }
+  }
+  &.is-open &__wrapper,
+  &__wrapper:focus-within {
+    --mo-input-border: var(--mo-color-primary);
+    box-shadow: 3px 3px 0 var(--mo-color-primary-light-7);
+  }
+  &__selection {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 3px 0;
+  }
+  &__value,
+  &__placeholder {
+    @include ellipsis;
+  }
+  &__placeholder {
+    color: var(--mo-text-color-placeholder);
+  }
+  &__input {
+    flex: 1;
+    min-width: 40px;
+    padding: 0;
+    font: inherit;
+    color: var(--mo-text-color);
+    background: none;
+    border: none;
+    outline: none;
+    &::placeholder {
+      color: var(--mo-text-color-placeholder);
+    }
+  }
+  &__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    height: 22px;
+    padding: 0 4px 0 8px;
+    font-size: var(--mo-font-size-xs);
+    color: var(--mo-color-primary-dark-2);
+    background: var(--mo-color-primary-light-9);
+    border: 1.5px solid var(--mo-color-primary-light-5);
+    border-radius: var(--mo-radius-hand);
+  }
+  &__tag-close {
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover {
+      color: var(--mo-color-white);
+      background: var(--mo-color-primary);
+    }
+  }
+  &__suffix {
+    display: inline-flex;
+    color: var(--mo-color-ink-3);
+  }
+  &__arrow {
+    transition: transform var(--mo-duration) var(--mo-ease-bounce);
+  }
+  &.is-open &__arrow {
+    transform: rotate(180deg);
+  }
+  &__clear:hover {
+    color: var(--mo-color-primary);
+  }
+
+  &.is-disabled &__wrapper {
+    cursor: not-allowed;
+    color: var(--mo-text-color-placeholder);
+    background: var(--mo-color-paper-deep);
+    --mo-input-border: var(--mo-color-line);
+    box-shadow: none;
+  }
+  &--small {
+    --mo-input-height: var(--mo-size-small);
+    font-size: var(--mo-font-size-sm);
+  }
+  &--large {
+    --mo-input-height: var(--mo-size-large);
+    font-size: var(--mo-font-size-md);
+  }
+
+  &__dropdown {
+    padding: 6px;
+    max-width: none;
+  }
+  &__list {
+    max-height: 260px;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto;
+    list-style: none;
+  }
+  &__empty {
+    padding: 14px 0;
+    text-align: center;
+    color: var(--mo-text-color-placeholder);
+    font-size: var(--mo-font-size-sm);
+    &::before {
+      content: '(・ω・) ';
+    }
+  }
+}
+
+.mo-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 7px 10px;
+  font-size: var(--mo-font-size-base);
+  color: var(--mo-text-color);
+  border-radius: var(--mo-radius-wobble-sm);
+  cursor: pointer;
+  transition: background var(--mo-duration-fast);
+  &.is-hovered {
+    background: var(--mo-color-paper-deep);
+  }
+  &.is-selected {
+    color: var(--mo-color-primary);
+    font-weight: 700;
+  }
+  &__check {
+    animation: mo-pop var(--mo-duration) var(--mo-ease-bounce);
+  }
+  &.is-disabled {
+    color: var(--mo-text-color-placeholder);
+    cursor: not-allowed;
+  }
+}

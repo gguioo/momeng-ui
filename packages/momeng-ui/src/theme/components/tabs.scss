@@ -1,0 +1,141 @@
+@use '../mixins' as *;
+
+.mo-tabs {
+  font-family: var(--mo-font-family);
+  &__header {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  &__nav {
+    position: relative;
+    display: flex;
+    flex: 1;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    &.is-stretch .mo-tabs__item {
+      flex: 1;
+      justify-content: center;
+    }
+  }
+  &__item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    padding: 0 16px;
+    font-size: var(--mo-font-size-base);
+    color: var(--mo-text-color-secondary);
+    white-space: nowrap;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    transition:
+      color var(--mo-duration),
+      transform var(--mo-duration) var(--mo-ease-bounce);
+    &:hover:not(.is-disabled) {
+      color: var(--mo-text-color);
+    }
+    &.is-active {
+      color: var(--mo-color-primary);
+      font-weight: 700;
+    }
+    &:focus-visible {
+      @include focus-ring;
+      outline-offset: -3px;
+    }
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+  }
+  &__close {
+    font-size: 12px;
+    border-radius: 50%;
+    transition: all var(--mo-duration-fast);
+    &:hover {
+      color: var(--mo-color-white);
+      background: var(--mo-color-primary);
+    }
+  }
+  &__add {
+    @include reset-button;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    margin-bottom: 7px;
+    border: 1.5px dashed var(--mo-color-ink-3);
+    border-radius: 50%;
+    color: var(--mo-color-ink-3);
+    transition: all var(--mo-duration) var(--mo-ease-bounce);
+    &:hover {
+      color: var(--mo-color-primary);
+      border-color: var(--mo-color-primary);
+      transform: rotate(90deg);
+    }
+  }
+  &__content {
+    padding: 16px 2px;
+  }
+
+  // —— 墨线：一笔毛笔下划线跟随 ——
+  &--line &__header {
+    border-bottom: 1.5px solid var(--mo-color-line);
+  }
+  &__ink {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 6px;
+    background: var(--mo-color-primary);
+    -webkit-mask: var(--mo-brush-stroke) no-repeat center / 100% 100%;
+    mask: var(--mo-brush-stroke) no-repeat center / 100% 100%;
+    transition:
+      transform var(--mo-duration-slow) var(--mo-ease-bounce),
+      width var(--mo-duration-slow) var(--mo-ease-bounce);
+  }
+
+  // —— 卡片：档案夹 ——
+  &--card &__header {
+    border-bottom: var(--mo-border-width) solid var(--mo-border-color);
+  }
+  &--card &__item {
+    margin-bottom: calc(var(--mo-border-width) * -1);
+    background: var(--mo-color-paper-deep);
+    border: var(--mo-border-width) solid var(--mo-border-color);
+    border-radius: 14px 12px 0 0 / 10px 12px 0 0;
+    &.is-active {
+      background: var(--mo-bg-color);
+      border-bottom-color: var(--mo-bg-color);
+      transform: translateY(-2px);
+    }
+  }
+
+  // —— 书签：夹在书页边上的彩色书签 ——
+  &--bookmark &__nav {
+    gap: 10px;
+  }
+  &--bookmark &__item {
+    height: 46px;
+    padding: 0 18px 6px;
+    color: var(--mo-color-ink-2);
+    background: var(--mo-color-paper-deep);
+    border: 1.5px solid var(--mo-color-line);
+    border-bottom: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 50% 82%, 0 100%);
+    transform: translateY(8px);
+    &.is-active {
+      color: var(--mo-color-white);
+      background: var(--mo-color-primary);
+      border-color: var(--mo-color-primary);
+      transform: translateY(0);
+    }
+    &:hover:not(.is-active):not(.is-disabled) {
+      transform: translateY(4px);
+    }
+  }
+}

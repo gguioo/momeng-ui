@@ -1,0 +1,11 @@
+@use '../tokens' as t;
+
+// ConfigProvider 覆盖 --mo-color-* 后需要重新计算梯度色
+.mo-config-provider {
+  @include t.derived-tokens;
+  color: var(--mo-text-color);
+  font-family: var(--mo-font-family);
+}
+.mo-config-provider[data-mo-theme='dark'] {
+  background-color: var(--mo-bg-color);
+}

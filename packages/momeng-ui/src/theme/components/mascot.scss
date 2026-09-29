@@ -1,0 +1,68 @@
+.mo-mascot {
+  --mo-mascot-body: var(--mo-color-ink);
+  --mo-mascot-face: var(--mo-color-paper-light);
+  display: inline-block;
+  flex-shrink: 0;
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  &.is-animated svg {
+    animation: mo-float 3.2s ease-in-out infinite;
+    transform-origin: 50% 90%;
+  }
+  &__body,
+  &__drop {
+    fill: var(--mo-mascot-body);
+  }
+  &__tuft {
+    fill: none;
+    stroke: var(--mo-mascot-body);
+    stroke-width: 3.4;
+    stroke-linecap: round;
+  }
+  &__shine {
+    fill: none;
+    stroke: var(--mo-mascot-face);
+    stroke-width: 3;
+    stroke-linecap: round;
+    opacity: 0.35;
+  }
+  &__blush {
+    fill: var(--mo-color-pink);
+    opacity: 0.85;
+  }
+  &__face {
+    fill: none;
+    stroke: var(--mo-mascot-face);
+    stroke-width: 3.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    .fill,
+    .heart {
+      fill: var(--mo-mascot-face);
+      stroke: none;
+    }
+    .heart {
+      fill: var(--mo-color-pink);
+    }
+    .tongue {
+      fill: var(--mo-color-pink);
+      stroke: none;
+    }
+    .tear {
+      fill: var(--mo-color-info-light-5);
+      stroke: none;
+    }
+    .zzz {
+      stroke: var(--mo-mascot-body);
+      stroke-width: 2.4;
+    }
+  }
+  // 暗色下墨团是「一团月光」
+  html.dark & {
+    --mo-mascot-face: #1d1a18;
+  }
+}

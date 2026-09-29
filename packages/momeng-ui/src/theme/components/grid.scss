@@ -1,0 +1,76 @@
+@use 'sass:math';
+
+.mo-row {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  &--justify-center {
+    justify-content: center;
+  }
+  &--justify-end {
+    justify-content: flex-end;
+  }
+  &--justify-space-between {
+    justify-content: space-between;
+  }
+  &--justify-space-around {
+    justify-content: space-around;
+  }
+  &--justify-space-evenly {
+    justify-content: space-evenly;
+  }
+  &--align-top {
+    align-items: flex-start;
+  }
+  &--align-middle {
+    align-items: center;
+  }
+  &--align-bottom {
+    align-items: flex-end;
+  }
+}
+
+.mo-col {
+  position: relative;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+@mixin col-rules($prefix) {
+  .mo-col#{$prefix}-0 {
+    display: none;
+  }
+  @for $i from 1 through 24 {
+    .mo-col#{$prefix}-#{$i} {
+      display: block;
+      flex: 0 0 math.percentage(math.div($i, 24));
+      max-width: math.percentage(math.div($i, 24));
+    }
+    .mo-col#{$prefix}-offset-#{$i} {
+      margin-left: math.percentage(math.div($i, 24));
+    }
+  }
+}
+
+@include col-rules('');
+@for $i from 1 through 24 {
+  .mo-col-push-#{$i} {
+    left: math.percentage(math.div($i, 24));
+  }
+  .mo-col-pull-#{$i} {
+    right: math.percentage(math.div($i, 24));
+  }
+}
+
+$breakpoints: (
+  'xs': '(max-width: 767px)',
+  'sm': '(min-width: 768px)',
+  'md': '(min-width: 992px)',
+  'lg': '(min-width: 1200px)',
+  'xl': '(min-width: 1920px)',
+);
+@each $bp, $query in $breakpoints {
+  @media #{$query} {
+    @include col-rules('-#{$bp}');
+  }
+}

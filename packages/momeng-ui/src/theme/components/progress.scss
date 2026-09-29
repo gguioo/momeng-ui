@@ -1,0 +1,98 @@
+.mo-progress {
+  --mo-progress-color: var(--mo-color-primary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--mo-font-family);
+  &--circle {
+    display: inline-flex;
+  }
+  &__track {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+    background: var(--mo-color-paper-deep);
+    border: 1.5px solid var(--mo-border-color);
+    border-radius: 8px 10px 7px 11px / 10px 7px 11px 8px;
+  }
+  &__bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    background-color: var(--mo-progress-color);
+    border-radius: inherit;
+    transition: width var(--mo-duration-slow) var(--mo-ease-ink);
+  }
+  &.is-striped &__bar {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 253, 246, 0.28) 0 6px,
+      transparent 6px 12px
+    );
+    background-size: 34px 100%;
+    animation: mo-progress-stripe 1s linear infinite;
+  }
+  &.is-indeterminate &__bar {
+    width: 36% !important;
+    animation: mo-progress-indeterminate 1.4s var(--mo-ease-ink) infinite;
+  }
+  &__inner-text {
+    padding: 0 8px;
+    font-size: 11px;
+    color: var(--mo-color-white);
+    white-space: nowrap;
+  }
+  &__text {
+    min-width: 42px;
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-sm);
+    color: var(--mo-text-color-secondary);
+    .mo-icon {
+      font-size: 18px;
+      color: var(--mo-progress-color);
+    }
+  }
+  &__circle {
+    position: relative;
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+  &__circle-track {
+    stroke: var(--mo-color-paper-deep);
+  }
+  &__circle-bar {
+    stroke: var(--mo-progress-color);
+    transition: stroke-dashoffset var(--mo-duration-slow) var(--mo-ease-ink);
+  }
+  &__circle-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mo-font-family-display);
+    font-size: var(--mo-font-size-lg);
+    color: var(--mo-text-color);
+    .mo-icon {
+      color: var(--mo-progress-color);
+    }
+  }
+}
+@keyframes mo-progress-stripe {
+  to {
+    background-position: 34px 0;
+  }
+}
+@keyframes mo-progress-indeterminate {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(290%);
+  }
+}

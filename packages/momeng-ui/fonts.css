@@ -1,0 +1,8 @@
+/* 墨萌推荐字体（通过 jsDelivr CDN 按需分片加载）
+ * import 'momeng-ui/fonts.css'
+ * 霞鹜文楷：正文 · 站酷快乐体：标题与数字 · 马善政行书：印章与点睛
+ */
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.css');
+@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-bold.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/zcool-kuaile/index.css');
+@import url('https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/index.css');

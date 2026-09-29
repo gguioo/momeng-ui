@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "jsx": "preserve",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitOverride": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "useDefineForClassFields": true,
+    "types": [
+      "vitest/globals"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "momeng-ui": [
+        "packages/momeng-ui/src/index.ts"
+      ],
+      "@momeng/*": [
+        "packages/momeng-ui/src/*"
+      ]
+    }
+  },
+  "include": [
+    "packages/momeng-ui/src/**/*.ts",
+    "packages/momeng-ui/src/**/*.vue",
+    "docs/examples/**/*.vue",
+    "packages/momeng-ui/global.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
